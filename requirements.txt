@@ -1,0 +1,30 @@
+# API
+fastapi>=0.111.0
+uvicorn[standard]>=0.29.0
+
+# MCP server + web search
+mcp>=1.0.0
+duckduckgo-search>=6.0.0
+
+# PDF ingestion
+requests>=2.31.0
+pdfplumber>=0.10.3
+
+# Embeddings
+sentence-transformers>=2.7.0
+
+# Vector store
+chromadb>=0.5.0
+
+# LLM (HuggingFace Transformers)
+transformers>=4.40.0
+torch>=2.2.0
+accelerate>=0.29.0
+
+# Utilities
+python-dotenv>=1.0.0
+tqdm>=4.66.0
+
+# Testing
+pytest>=8.0.0
+pytest-mock>=3.14.0
