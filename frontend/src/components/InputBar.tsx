@@ -76,7 +76,7 @@ export default function InputBar({ onSend, onIngest, isLoading, isIngesting, dis
             border: 'none',
             outline: 'none',
             background: 'transparent',
-            fontSize: '14px',
+            fontSize: '16px',
             fontFamily: 'inherit',
             lineHeight: 1.6,
             color: '#1e293b',

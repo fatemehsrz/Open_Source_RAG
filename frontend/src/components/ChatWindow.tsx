@@ -33,10 +33,10 @@ export default function ChatWindow({ messages, isLoading }: Props) {
             fontSize: '36px',
             boxShadow: '0 8px 32px rgba(99,102,241,0.3)',
           }}>📄</div>
-          <div style={{ fontWeight: 700, fontSize: '20px', color: '#4f46e5', marginBottom: '8px' }}>
+          <div style={{ fontWeight: 700, fontSize: '24px', color: '#4f46e5', marginBottom: '8px' }}>
             Murata Catalog RAG
           </div>
-          <div style={{ fontSize: '14px', color: '#4f46e5', marginBottom: '24px' }}>
+          <div style={{ fontSize: '16px', color: '#4f46e5', marginBottom: '24px' }}>
             Ask anything about Murata products
           </div>
           {/* Quick-start chips */}

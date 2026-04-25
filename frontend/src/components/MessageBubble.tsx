@@ -57,7 +57,7 @@ export default function MessageBubble({ message }: Props) {
             : '0 2px 12px rgba(0,0,0,0.07)',
           border: isUser ? 'none' : '1.5px solid #e0e7ff',
           lineHeight: 1.65,
-          fontSize: '14px',
+          fontSize: '16px',
           whiteSpace: 'pre-wrap',
           wordBreak: 'break-word',
         }}>

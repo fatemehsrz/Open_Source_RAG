@@ -113,16 +113,16 @@ export default function App() {
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', zIndex: 1 }}>
           <div style={{
             background: 'rgba(255,255,255,0.15)',
-            borderRadius: '14px',
-            padding: '8px 10px',
-            fontSize: '32px',
+            borderRadius: '16px',
+            padding: '10px 12px',
+            fontSize: '44px',
             backdropFilter: 'blur(4px)',
             lineHeight: 1,
             border: '1px solid rgba(255,255,255,0.2)',
           }}>🤖</div>
           <div>
-            <div style={{ fontWeight: 700, fontSize: '16px', color: '#fff' }}>Murata RAG Chat</div>
-            <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.7)' }}>
+            <div style={{ fontWeight: 700, fontSize: '20px', color: '#fff' }}>Murata RAG Chat</div>
+            <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.7)' }}>
               Open-source · Local LLM · ChromaDB
             </div>
           </div>
