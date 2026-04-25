@@ -88,12 +88,12 @@ export default function App() {
 
       {/* Header — gradient */}
       <header style={{
-        background: 'linear-gradient(135deg, #1e1b4b 0%, #3730a3 40%, #4c1d95 100%)',
+        background: '#000000',
         padding: '14px 24px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        boxShadow: '0 4px 20px rgba(79,70,229,0.35)',
+        boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
         flexShrink: 0,
         position: 'relative',
         overflow: 'hidden',
