@@ -13,6 +13,7 @@ interface Props {
 export default function InputBar({ onSend, onIngest, isLoading, isIngesting, disabled }: Props) {
   const [value, setValue] = useState('')
   const [engine, setEngine] = useState<SearchEngine>(null)
+  const [focused, setFocused] = useState(false)
 
   const handleSend = () => {
     const trimmed = value.trim()
@@ -28,87 +29,107 @@ export default function InputBar({ onSend, onIngest, isLoading, isIngesting, dis
     }
   }
 
+  const canSend = !!value.trim() && !isLoading && !disabled
+
   return (
     <div style={{
-      borderTop: '1px solid var(--border)',
-      background: 'var(--surface)',
-      padding: '10px 16px 12px',
+      background: 'white',
+      borderTop: '1.5px solid #e0e7ff',
+      padding: '12px 20px 16px',
       display: 'flex',
       flexDirection: 'column',
-      gap: '6px',
+      gap: '8px',
+      boxShadow: '0 -4px 20px rgba(99,102,241,0.06)',
     }}>
-      {/* Search engine selector */}
       <SearchEngineBar selected={engine} onChange={setEngine} />
 
-      {/* Text input + send */}
-      <div style={{ display: 'flex', gap: '8px', alignItems: 'flex-end' }}>
+      {/* Input row */}
+      <div style={{
+        display: 'flex',
+        gap: '10px',
+        alignItems: 'flex-end',
+        background: focused ? '#fafbff' : '#f8f9ff',
+        border: `2px solid ${focused ? '#6366f1' : '#e0e7ff'}`,
+        borderRadius: '16px',
+        padding: '8px 8px 8px 14px',
+        transition: 'border-color 0.2s, background 0.2s',
+        boxShadow: focused ? '0 0 0 4px rgba(99,102,241,0.08)' : 'none',
+      }}>
         <textarea
           value={value}
           onChange={e => setValue(e.target.value)}
           onKeyDown={handleKey}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
           placeholder={
-            engine
-              ? `Ask anything — will search ${engine} + local catalog…`
-              : 'Ask about Murata products… (Enter to send)'
+            disabled
+              ? 'Waiting for backend…'
+              : engine
+                ? `Ask anything — searching ${engine} + catalog…`
+                : 'Ask about Murata products… (Enter to send)'
           }
           disabled={isLoading || disabled}
           rows={2}
           style={{
             flex: 1,
             resize: 'none',
-            border: '1px solid var(--border)',
-            borderRadius: '10px',
-            padding: '10px 12px',
+            border: 'none',
+            outline: 'none',
+            background: 'transparent',
             fontSize: '14px',
             fontFamily: 'inherit',
-            lineHeight: 1.5,
-            outline: 'none',
-            background: disabled ? '#f8fafc' : '#fff',
-            color: 'var(--ai-text)',
-            transition: 'border-color 0.15s',
+            lineHeight: 1.6,
+            color: '#1e293b',
           }}
-          onFocus={e => (e.target.style.borderColor = 'var(--accent)')}
-          onBlur={e => (e.target.style.borderColor = 'var(--border)')}
         />
         <button
           onClick={handleSend}
-          disabled={!value.trim() || isLoading || disabled}
+          disabled={!canSend}
           style={{
-            padding: '10px 20px',
-            borderRadius: '10px',
+            width: '42px', height: '42px',
+            borderRadius: '12px',
             border: 'none',
-            background: 'var(--accent)',
-            color: '#fff',
-            fontWeight: 600,
-            fontSize: '14px',
-            cursor: !value.trim() || isLoading || disabled ? 'not-allowed' : 'pointer',
-            opacity: !value.trim() || isLoading || disabled ? 0.5 : 1,
-            transition: 'opacity 0.15s',
-            whiteSpace: 'nowrap',
-            height: '40px',
+            background: canSend
+              ? 'linear-gradient(135deg, #ef4444, #f97316)'
+              : '#e2e8f0',
+            color: canSend ? '#fff' : '#94a3b8',
+            fontWeight: 700,
+            fontSize: '18px',
+            cursor: canSend ? 'pointer' : 'not-allowed',
+            transition: 'all 0.2s',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexShrink: 0,
+            boxShadow: canSend ? '0 4px 12px rgba(239,68,68,0.4)' : 'none',
           }}
         >
-          {isLoading ? '…' : 'Send'}
+          {isLoading ? '⏳' : '➤'}
         </button>
       </div>
 
-      {/* Ingest button */}
-      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+      {/* Bottom row */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <span style={{ fontSize: '11px', color: '#94a3b8' }}>
+          Enter to send · Shift+Enter for newline
+        </span>
         <button
           onClick={onIngest}
           disabled={isIngesting || disabled}
           style={{
-            padding: '5px 12px',
-            borderRadius: '8px',
-            border: '1px solid var(--border)',
-            background: 'transparent',
-            color: isIngesting ? 'var(--muted)' : 'var(--accent)',
-            fontWeight: 500,
+            padding: '5px 14px',
+            borderRadius: '999px',
+            border: '1.5px solid #c7d2fe',
+            background: isIngesting ? '#f1f5f9' : 'linear-gradient(135deg, #eef2ff, #fdf4ff)',
+            color: isIngesting ? '#94a3b8' : '#6366f1',
+            borderColor: isIngesting ? '#e2e8f0' : '#c7d2fe',
+            fontWeight: 600,
             fontSize: '12px',
             cursor: isIngesting || disabled ? 'not-allowed' : 'pointer',
+            transition: 'all 0.15s',
           }}
         >
-          {isIngesting ? '⏳ Ingesting PDFs…' : '📥 Ingest Murata PDFs'}
+          {isIngesting ? '⏳ Ingesting…' : '📥 Ingest Murata PDFs'}
         </button>
       </div>
     </div>

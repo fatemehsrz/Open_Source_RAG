@@ -37,16 +37,13 @@ export default function App() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ question, engine }),
       })
-
       if (!res.ok) {
         const err = await res.json().catch(() => ({ detail: res.statusText }))
         throw new Error(err.detail ?? 'Request failed')
       }
-
       const data = await res.json()
       setMessages(prev => [...prev, {
-        id: uid(),
-        role: 'assistant',
+        id: uid(), role: 'assistant',
         content: data.answer,
         sources: data.sources,
         hits: data.hits,
@@ -54,8 +51,7 @@ export default function App() {
       }])
     } catch (err) {
       setMessages(prev => [...prev, {
-        id: uid(),
-        role: 'assistant',
+        id: uid(), role: 'assistant',
         content: `Error: ${err instanceof Error ? err.message : 'Unknown error'}`,
         error: true,
       }])
@@ -70,15 +66,13 @@ export default function App() {
       const res = await fetch('/api/ingest', { method: 'POST' })
       const data = await res.json()
       setMessages(prev => [...prev, {
-        id: uid(),
-        role: 'assistant',
+        id: uid(), role: 'assistant',
         content: `✅ Ingestion complete — ${data.chunks_stored} chunks stored.`,
       }])
       fetchStatus()
     } catch (err) {
       setMessages(prev => [...prev, {
-        id: uid(),
-        role: 'assistant',
+        id: uid(), role: 'assistant',
         content: `Ingestion failed: ${err instanceof Error ? err.message : 'Unknown error'}`,
         error: true,
       }])
@@ -91,55 +85,73 @@ export default function App() {
 
   return (
     <div style={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
-      {/* Header */}
+
+      {/* Header — gradient */}
       <header style={{
-        background: 'var(--surface)',
-        borderBottom: '1px solid var(--border)',
-        padding: '12px 20px',
+        background: 'linear-gradient(135deg, #1e1b4b 0%, #3730a3 40%, #4c1d95 100%)',
+        padding: '14px 24px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        boxShadow: 'var(--shadow)',
+        boxShadow: '0 4px 20px rgba(79,70,229,0.35)',
         flexShrink: 0,
+        position: 'relative',
+        overflow: 'hidden',
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <span style={{ fontSize: '20px' }}>🤖</span>
-          <span style={{ fontWeight: 700, fontSize: '16px' }}>Murata RAG Chat</span>
+        {/* Decorative blobs */}
+        <div style={{
+          position: 'absolute', top: '-20px', right: '80px',
+          width: '100px', height: '100px', borderRadius: '50%',
+          background: 'rgba(255,255,255,0.08)',
+        }} />
+        <div style={{
+          position: 'absolute', bottom: '-30px', right: '200px',
+          width: '80px', height: '80px', borderRadius: '50%',
+          background: 'rgba(255,255,255,0.06)',
+        }} />
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', zIndex: 1 }}>
+          <div style={{
+            background: 'rgba(255,255,255,0.15)',
+            borderRadius: '14px',
+            padding: '8px 10px',
+            fontSize: '32px',
+            backdropFilter: 'blur(4px)',
+            lineHeight: 1,
+            border: '1px solid rgba(255,255,255,0.2)',
+          }}>🤖</div>
+          <div>
+            <div style={{ fontWeight: 700, fontSize: '16px', color: '#fff' }}>Murata RAG Chat</div>
+            <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.7)' }}>
+              Open-source · Local LLM · ChromaDB
+            </div>
+          </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', fontSize: '12px', color: 'var(--muted)' }}>
+        {/* Status pills */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', zIndex: 1 }}>
           {status ? (
             <>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                <span style={{
-                  width: '7px', height: '7px', borderRadius: '50%',
-                  background: backendReady ? '#22c55e' : '#f59e0b',
-                  display: 'inline-block',
-                }} />
-                {backendReady ? 'Ready' : 'Loading…'}
-              </span>
+              <Pill
+                color={backendReady ? '#22c55e' : '#f59e0b'}
+                bg="rgba(255,255,255,0.15)"
+                text={backendReady ? '● Ready' : '● Loading…'}
+              />
               {backendReady && (
                 <>
-                  <span>📦 {status.chunks.toLocaleString()} chunks</span>
-                  <span title={status.model} style={{
-                    maxWidth: '160px', overflow: 'hidden',
-                    textOverflow: 'ellipsis', whiteSpace: 'nowrap',
-                  }}>
-                    🧠 {status.model.split('/').pop()}
-                  </span>
+                  <Pill bg="rgba(255,255,255,0.15)" text={`📦 ${status.chunks.toLocaleString()} chunks`} />
+                  <Pill bg="rgba(255,255,255,0.15)" text={`🧠 ${status.model.split('/').pop()}`} maxW="160px" />
                 </>
               )}
             </>
           ) : (
-            <span>Connecting to backend…</span>
+            <Pill bg="rgba(255,255,255,0.15)" text="Connecting…" />
           )}
         </div>
       </header>
 
-      {/* Chat area */}
       <ChatWindow messages={messages} isLoading={isLoading} />
 
-      {/* Input */}
       <InputBar
         onSend={handleSend}
         onIngest={handleIngest}
@@ -148,5 +160,27 @@ export default function App() {
         disabled={!backendReady}
       />
     </div>
+  )
+}
+
+function Pill({ text, bg, color, maxW }: { text: string; bg: string; color?: string; maxW?: string }) {
+  return (
+    <span style={{
+      background: bg,
+      color: color ?? '#fff',
+      borderRadius: '999px',
+      padding: '4px 10px',
+      fontSize: '12px',
+      fontWeight: 500,
+      backdropFilter: 'blur(4px)',
+      border: '1px solid rgba(255,255,255,0.2)',
+      maxWidth: maxW,
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap',
+      display: 'inline-block',
+    }}>
+      {text}
+    </span>
   )
 }

@@ -1,5 +1,7 @@
 # Open Source RAG with MCP
 
+![Murata RAG Chat UI](docs/screenshot.png)
+
 A fully open-source Retrieval-Augmented Generation (RAG) system that ingests Murata product catalog PDFs, stores them in a local vector database, and answers questions through a chat UI — with optional web search via DuckDuckGo, Brave, or Google.
 
 ---
@@ -181,7 +183,7 @@ npm install      # first time only
 npm run dev
 ```
 
-Open **`http://localhost:5173`** in your browser.
+Open [http://localhost:5173](http://localhost:5173) in your browser.
 
 ### 5. Ingest the Murata catalogs
 
