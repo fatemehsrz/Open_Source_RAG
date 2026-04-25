@@ -25,10 +25,10 @@ A fully open-source Retrieval-Augmented Generation (RAG) system that ingests Mur
 
 | Catalog | URL |
 |---------|-----|
-| BLE Application Guide | https://www.murata.com/-/media/webrenewal/support/library/catalog/products/ble-appguide.ashx?la=en-us&cvid=20201202062645000000 |
-| Murata Overview | https://www.murata.com/-/media/webrenewal/support/library/catalog/products/murataoverview.ashx?la=en-us&cvid=20220818072215000000 |
-| Polymer Capacitor (C90E) | https://www.murata.com/-/media/webrenewal/support/library/catalog/products/capacitor/polymer/c90e.ashx?la=en-us&cvid=20240517050000000000 |
-| DC-DC Power Products (MPS) | https://www.murata.com/-/media/webrenewal/support/library/catalog/products/power-products/mps-dcdc.ashx?la=en-us&cvid=20230119010000000000 |
+| BLE Application Guide | [Components Selection Guide for Bluetooth® Low Energ](https://www.murata.com/-/media/webrenewal/support/library/catalog/products/ble-appguide.ashx?la=en-us&cvid=20201202062645000000) |
+| Murata Overview | [Shaping the future of electronics](https://www.murata.com/-/media/webrenewal/support/library/catalog/products/murataoverview.ashx?la=en-us&cvid=20220818072215000000) |
+| Polymer Capacitor (C90E) | [Polymer Aluminum Electrolytic Capacitors](https://www.murata.com/-/media/webrenewal/support/library/catalog/products/capacitor/polymer/c90e.ashx?la=en-us&cvid=20240517050000000000) |
+| DC-DC Power Products (MPS) | [DC-DC Converters](https://www.murata.com/-/media/webrenewal/support/library/catalog/products/power-products/mps-dcdc.ashx?la=en-us&cvid=20230119010000000000) |
 
 ---
 
