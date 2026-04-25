@@ -1,6 +1,6 @@
 # Open Source RAG with MCP
 
-![Murata RAG Chat UI](docs/screenshot.png)
+![Murata RAG Chat UI](docs/screenshot_1.png)
 
 A fully open-source Retrieval-Augmented Generation (RAG) system that ingests Murata product catalog PDFs, stores them in a local vector database, and answers questions through a chat UI — with optional web search via DuckDuckGo, Brave, or Google.
 
